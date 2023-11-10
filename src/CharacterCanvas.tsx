@@ -2,9 +2,6 @@ import React, {useState} from 'react'
 
 function CharacterCanvas() {
   const [tuscii, setTuscii] = useState(0b000000000000);
-  const [innerTuscii, setInnerTuscii] = useState(0b000000);
-  const [outerTuscii, setOuterTuscii] = useState(0b00000);
-  const [reverter, setReverter] = useState(false);
 
   const fullVowel: number = 3968
   const fullConsonant: number = 126
@@ -21,7 +18,7 @@ function CharacterCanvas() {
   const y6 = "160"
   const y7 = "170"
 
-  const handleClick = (event: React.MouseEvent<SVGLineElement>) => {
+  const handleClick = (event: React.MouseEvent<SVGElement>) => {
     let line = event.target;
 
     // type safety
