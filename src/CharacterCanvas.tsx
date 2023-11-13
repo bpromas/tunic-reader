@@ -23,10 +23,6 @@ function CharacterCanvas() {
     setTuscii(tuscii ^ index)
   }
 
-  const dec2bin = (dec: number) => {
-    return (dec >>> 0).toString(2).padStart(12, '0');
-  }
-
   const getIPA = (tuscii: number) => {
     const consonantIPA = consonantDictionary[tuscii & fullConsonant] || ""
     const vowelIPA = vowelDictionary[tuscii & fullVowel] || ""
@@ -61,53 +57,6 @@ function CharacterCanvas() {
     "126": "ŋ",
   }
   const vowelDictionary = {
-    "128": "aɪ",
-    "256": "eɪ",
-    "384": "ə",
-    "768": "ɒ",
-    "896": "æ",
-    "1024": "ɔɪ",
-    "1536": "ʊ",
-    "1920": "uː",
-    "2048": "aʊ",
-    "2560": "ɛr",
-    "2816": "ɪr",
-    "2944": "ɔːr",
-    "3072": "ɪ",
-    "3456": "ɑːr",
-    "3584": "ɛ",
-    "3712": "ɜːr",
-    "3840": "iː",
-    "3968": "oʊ",
-  }
-  
-  const consonantApproximations = {
-    "10": "w",
-    "20": "dʒ",
-    "34": "p",
-    "36": "l",
-    "38": "ɹ",
-    "40": "tʃ",
-    "42": "t",
-    "44": "j",
-    "46": "θ",
-    "50": "f",
-    "54": "s",
-    "68": "b",
-    "70": "k",
-    "76": "v",
-    "80": "m",
-    "84": "d",
-    "88": "n",
-    "94": "ʒ",
-    "98": "g",
-    "100": "h",
-    "108": "z",
-    "116": "ð",
-    "122": "ʃ",
-    "126": "ng",
-  }
-  const vowelApproximations = {
     "128": "aɪ",
     "256": "eɪ",
     "384": "ə",
