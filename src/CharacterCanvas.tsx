@@ -110,7 +110,7 @@ function CharacterCanvas({isCharacter, index, onChange}) {
         <div>IPA: {ipaString || "?"}</div>
       </div>
     </div>
-  ) : (<div className='w-10 bg-white/5'></div>)
+  ) : (<div className='w-[50px] bg-white/5'></div>)
 }
 
 export default CharacterCanvas
