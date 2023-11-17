@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 
-function CharacterCanvas() {
+function CharacterCanvas({isCharacter, index, onChange}) {
+  const [ipaString, setipaString] = useState("");
   const [tuscii, setTuscii] = useState(0b000000000000);
 
   const fullVowel: number = 3968
@@ -12,15 +13,19 @@ function CharacterCanvas() {
 
   const handleClick = (event: React.MouseEvent<SVGElement>) => {
     let line = event.target;
-
     // type safety
     if (!(line instanceof SVGElement)) {
       return;
     }
     
-    let index = parseInt(line.dataset.tuscii)
+    let bit = parseInt(line.dataset.tuscii)  
+    let toggledTuscii = tuscii ^ bit // toggles the "bit" representing the clicked line
+    let ipa = getIPA(toggledTuscii)
+
+    onChange(index, ipa)
     
-    setTuscii(tuscii ^ index)
+    setTuscii(toggledTuscii)
+    setipaString(ipa)
   }
 
   const getIPA = (tuscii: number) => {
@@ -77,35 +82,35 @@ function CharacterCanvas() {
     "3968": "oʊ",
   }
 
-  return (
+  return isCharacter ? (
     <div className='flex flex-col w-[100px]'>
       <svg height="200" strokeLinecap="round" onClick={handleClick} className="stroke-[10px] -ml-2">
 
         {/* ordem das linhas sempre começando no canto superior direito e seguindo sentido anti-horário */}
         {/* consonant lines */}
 
-        <line x1={xCoords[1]} y1={yCoords[2]} x2={xCoords[2]} y2={yCoords[1]} data-tuscii={2} className={`${tuscii & 2 ? "stroke-red-600" : "stroke-red-400/50"} hover:stroke-red-400`} />
-        <line x1={xCoords[1]} y1={yCoords[2]} x2={xCoords[1]} y2={yCoords[0]} data-tuscii={4} className={`${tuscii & 4 ? "stroke-red-600" : "stroke-red-400/50"} hover:stroke-red-400`}/>
-        <line x1={xCoords[1]} y1={yCoords[2]} x2={xCoords[0]} y2={yCoords[1]} data-tuscii={8} className={`${tuscii & 8 ? "stroke-red-600" : "stroke-red-400/50"} hover:stroke-red-400`}/>
-        <line x1={xCoords[1]} y1={yCoords[3]} x2={xCoords[0]} y2={yCoords[4]} data-tuscii={16} className={`${tuscii & 16 ? "stroke-red-600" : "stroke-red-400/50"} hover:stroke-red-400`}/>
-        <line x1={xCoords[1]} y1={yCoords[3]} x2={xCoords[1]} y2={yCoords[5]} data-tuscii={32} className={`${tuscii & 32 ? "stroke-red-600" : "stroke-red-400/50"} hover:stroke-red-400`}/>
-        <line x1={xCoords[1]} y1={yCoords[3]} x2={xCoords[2]} y2={yCoords[4]} data-tuscii={64} className={`${tuscii & 64 ? "stroke-red-600" : "stroke-red-400/50"} hover:stroke-red-400`}/>
+        <line x1={xCoords[1]} y1={yCoords[2]} x2={xCoords[2]} y2={yCoords[1]} data-tuscii={2} className={`${tuscii & 2 ? "stroke-red-600" : "stroke-red-400/20"} hover:stroke-red-400`} />
+        <line x1={xCoords[1]} y1={yCoords[2]} x2={xCoords[1]} y2={yCoords[0]} data-tuscii={4} className={`${tuscii & 4 ? "stroke-red-600" : "stroke-red-400/20"} hover:stroke-red-400`}/>
+        <line x1={xCoords[1]} y1={yCoords[2]} x2={xCoords[0]} y2={yCoords[1]} data-tuscii={8} className={`${tuscii & 8 ? "stroke-red-600" : "stroke-red-400/20"} hover:stroke-red-400`}/>
+        <line x1={xCoords[1]} y1={yCoords[3]} x2={xCoords[0]} y2={yCoords[4]} data-tuscii={16} className={`${tuscii & 16 ? "stroke-red-600" : "stroke-red-400/20"} hover:stroke-red-400`}/>
+        <line x1={xCoords[1]} y1={yCoords[3]} x2={xCoords[1]} y2={yCoords[5]} data-tuscii={32} className={`${tuscii & 32 ? "stroke-red-600" : "stroke-red-400/20"} hover:stroke-red-400`}/>
+        <line x1={xCoords[1]} y1={yCoords[3]} x2={xCoords[2]} y2={yCoords[4]} data-tuscii={64} className={`${tuscii & 64 ? "stroke-red-600" : "stroke-red-400/20"} hover:stroke-red-400`}/>
 
         {/* vowel lines */}
-        <line x1={xCoords[1]} y1={yCoords[0]} x2={xCoords[2]} y2={yCoords[1]} data-tuscii={128} className={`${tuscii & 128 ? "stroke-blue-600" : "stroke-blue-400/50"} hover:stroke-blue-400`}/>
-        <line x1={xCoords[0]} y1={yCoords[1]} x2={xCoords[1]} y2={yCoords[0]} data-tuscii={256} className={`${tuscii & 256 ? "stroke-blue-600" : "stroke-blue-400/50"} hover:stroke-blue-400`}/>
-        <line x1={xCoords[0]} y1={yCoords[1]} x2={xCoords[0]} y2={yCoords[4]} data-tuscii={512} className={`${tuscii & 512 ? "stroke-blue-600" : "stroke-blue-400/50"} hover:stroke-blue-400`}/>
-        <line x1={xCoords[0]} y1={yCoords[4]} x2={xCoords[1]} y2={yCoords[5]} data-tuscii={1024} className={`${tuscii & 1024 ? "stroke-blue-600" : "stroke-blue-400/50"} hover:stroke-blue-400`}/>
-        <line x1={xCoords[2]} y1={yCoords[4]} x2={xCoords[1]} y2={yCoords[5]} data-tuscii={2048} className={`${tuscii & 2048 ? "stroke-blue-600" : "stroke-blue-400/50"} hover:stroke-blue-400`}/>
-        <circle cx={xCoords[1]} cy={yCoords[6]} r={inverterRadius} fill="none" data-tuscii={1} className={`${tuscii & 1 ? "stroke-green-600" : "stroke-green-400/50"} hover:stroke-green-400 stroke-[8px]`}/>
+        <line x1={xCoords[1]} y1={yCoords[0]} x2={xCoords[2]} y2={yCoords[1]} data-tuscii={128} className={`${tuscii & 128 ? "stroke-blue-600" : "stroke-blue-400/20"} hover:stroke-blue-400`}/>
+        <line x1={xCoords[0]} y1={yCoords[1]} x2={xCoords[1]} y2={yCoords[0]} data-tuscii={256} className={`${tuscii & 256 ? "stroke-blue-600" : "stroke-blue-400/20"} hover:stroke-blue-400`}/>
+        <line x1={xCoords[0]} y1={yCoords[1]} x2={xCoords[0]} y2={yCoords[4]} data-tuscii={512} className={`${tuscii & 512 ? "stroke-blue-600" : "stroke-blue-400/20"} hover:stroke-blue-400`}/>
+        <line x1={xCoords[0]} y1={yCoords[4]} x2={xCoords[1]} y2={yCoords[5]} data-tuscii={1024} className={`${tuscii & 1024 ? "stroke-blue-600" : "stroke-blue-400/20"} hover:stroke-blue-400`}/>
+        <line x1={xCoords[2]} y1={yCoords[4]} x2={xCoords[1]} y2={yCoords[5]} data-tuscii={2048} className={`${tuscii & 2048 ? "stroke-blue-600" : "stroke-blue-400/20"} hover:stroke-blue-400`}/>
+        <circle cx={xCoords[1]} cy={yCoords[6]} r={inverterRadius} fill="none" data-tuscii={1} className={`${tuscii & 1 ? "stroke-green-600" : "stroke-green-400/20"} hover:stroke-green-400 stroke-[8px]`}/>
       </svg>
       <div>
         <div>consonant: {consonantDictionary[tuscii & fullConsonant] || "?"}</div>
         <div>vowel: {vowelDictionary[tuscii & fullVowel] || "?"}</div>
-        <div>IPA: {getIPA(tuscii) || "?"}</div>
+        <div>IPA: {ipaString || "?"}</div>
       </div>
     </div>
-  )
+  ) : (<div className='w-10 bg-white/5'></div>)
 }
 
 export default CharacterCanvas
