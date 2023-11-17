@@ -7,7 +7,7 @@ function CharacterCanvas({isCharacter, index, onChange}) {
   const fullVowel: number = 3968
   const fullConsonant: number = 126
 
-  const xCoords = ["5", "83", "161"]
+  const xCoords = ["5", "64", "123"]
   const yCoords = ["5", "35", "65", "125", "155", "185", "195"]
   const inverterRadius = 10
 
@@ -83,7 +83,7 @@ function CharacterCanvas({isCharacter, index, onChange}) {
   }
 
   return isCharacter ? (
-    <div className='flex flex-col w-[156px]'>
+    <div className='flex flex-col w-[118px]'>
       <svg height="210" strokeLinecap="round" onClick={handleClick} className="stroke-[10px] ml-[-10px]">
 
         {/* ordem das linhas sempre começando no canto superior direito e seguindo sentido anti-horário */}
@@ -110,7 +110,7 @@ function CharacterCanvas({isCharacter, index, onChange}) {
         <div>IPA: {ipaString || "?"}</div>
       </div>
     </div>
-  ) : (<div className='w-[50px] bg-white/5'></div>)
+  ) : (<div className='w-[59px] mr-[10px] bg-white/5'></div>)
 }
 
 export default CharacterCanvas
