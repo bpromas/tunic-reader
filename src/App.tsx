@@ -17,6 +17,7 @@ function App() {
   }
   const deleteCharacter = () => {
     setIsCharacters((characters) => characters.filter((_, index) => index < (characters.length - 1)));
+    setIpaStrings((ipaStrings) => ipaStrings.filter((_, index) => index < (ipaStrings.length - 1)));
   }
 
   const onChange = (index, ipa) => {
