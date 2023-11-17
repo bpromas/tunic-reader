@@ -7,8 +7,8 @@ function CharacterCanvas({isCharacter, index, onChange}) {
   const fullVowel: number = 3968
   const fullConsonant: number = 126
 
-  const xCoords = ["5", "55", "105"]
-  const yCoords = ["5", "50", "70", "100", "120", "165", "185"]
+  const xCoords = ["5", "83", "161"]
+  const yCoords = ["5", "35", "65", "125", "155", "185", "195"]
   const inverterRadius = 10
 
   const handleClick = (event: React.MouseEvent<SVGElement>) => {
@@ -83,8 +83,8 @@ function CharacterCanvas({isCharacter, index, onChange}) {
   }
 
   return isCharacter ? (
-    <div className='flex flex-col w-[100px]'>
-      <svg height="200" strokeLinecap="round" onClick={handleClick} className="stroke-[10px] -ml-2">
+    <div className='flex flex-col w-[156px]'>
+      <svg height="210" strokeLinecap="round" onClick={handleClick} className="stroke-[10px] ml-[-10px]">
 
         {/* ordem das linhas sempre começando no canto superior direito e seguindo sentido anti-horário */}
         {/* consonant lines */}
