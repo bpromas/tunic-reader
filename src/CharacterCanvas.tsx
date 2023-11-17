@@ -104,7 +104,7 @@ function CharacterCanvas({isCharacter, index, onChange}) {
         <line x1={xCoords[2]} y1={yCoords[4]} x2={xCoords[1]} y2={yCoords[5]} data-tuscii={2048} className={`${tuscii & 2048 ? "stroke-blue-600" : "stroke-blue-400/20"} hover:stroke-blue-400`}/>
         <circle cx={xCoords[1]} cy={yCoords[6]} r={inverterRadius} fill="none" data-tuscii={1} className={`${tuscii & 1 ? "stroke-green-600" : "stroke-green-400/20"} hover:stroke-green-400 stroke-[8px]`}/>
       </svg>
-      <div>
+      <div className='text-xs'>
         <div>consonant: {consonantDictionary[tuscii & fullConsonant] || "?"}</div>
         <div>vowel: {vowelDictionary[tuscii & fullVowel] || "?"}</div>
         <div>IPA: {ipaString || "?"}</div>
